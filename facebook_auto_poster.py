@@ -18,7 +18,7 @@ import time
 # its fake account - BTW :)
 fb_email = "csrog.gaming@gmail.com"
 fb_password = "Ayush@2646"
-my_post_text = "Hello everyone! This is an automated post created using Selenium in Python. #Automation #Selenium #Python"
+my_post_text = "Hello everyone! This is an automated post created using Selenium in Python."
 
 # path to geckodriver - make sure this is correct for your machine
 # I kept getting "geckodriver not found" errors until I put the full path
