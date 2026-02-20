@@ -127,7 +127,7 @@ try:
     time.sleep(1)
 
     # typing out the post text - it was sending only letter H - because facebook's editor is weird
-    # so I thought why not copy past it? Google a bit and found ActionChains
+    # so I thought why not copy paste it? Googled a bit and found ActionChains
     # I'm copying the my_post_text to clipboard and pasting it with Ctrl+V - works :)
     pyperclip.copy(my_post_text)
     ActionChains(driver).key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).perform()
