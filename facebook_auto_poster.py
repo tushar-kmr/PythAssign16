@@ -62,7 +62,7 @@ try:
 
     # finding the email input field using ID
     email_field = my_wait.until(
-        EC.presence_of_element_located((By.ID, "email"))
+        EC.presence_of_element_located((By.NAME, "email"))
     )
     print("Debug: Successfully found the email input field")
     email_field.clear()
@@ -70,7 +70,7 @@ try:
     print("Debug: Entered email address")
 
     # finding password field using ID
-    pass_field = driver.find_element(By.ID, "pass")
+    pass_field = driver.find_element(By.NAME, "pass")
     pass_field.clear()
     pass_field.send_keys(fb_password)
     print("Debug: Entered password")
