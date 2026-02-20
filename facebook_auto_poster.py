@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
 import time
 
 # --- My credentials (I know this isnt the safest way but it works for now) ---
@@ -25,8 +26,13 @@ gecko_path = "./geckodriver.exe"
 print("Starting the script...")
 print("Setting up Firefox browser...")
 
+# stupid "Allow notifications?" popup - ahhh finally disabled it, some help from Google
+firefox_options = Options()
+firefox_options.set_preference("dom.webnotifications.enabled", False)
+firefox_options.set_preference("permissions.default.desktop-notification", 2)  # 2 = block
+
 service = Service(executable_path=gecko_path)
-driver = webdriver.Firefox(service=service)
+driver = webdriver.Firefox(service=service, options=firefox_options)
 
 # making the browser full screen so all elements are visible
 # (had issues with elements not being clickable when window was small)
@@ -98,7 +104,7 @@ try:
     # I had to use xpath to find it because there's no good ID for it
     # elem = driver.find_element(By.CLASS_NAME, "mentionsTextarea")  <-- didn't work, old facebook layout maybe?
     post_box = my_wait.until(
-        EC.element_to_be_clickable(By.XPATH, '//span[contains(text(), "What\'s on your mind")]')
+        EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "What\'s on your mind")]'))
     )
     post_box.click()
     print("Debug: Clicked on the 'Whats on your mind' area")
@@ -113,7 +119,7 @@ try:
     # now I need to find the actual text area inside the popup dialog
     # this was the hardest part - the text area is inside a editable div
     text_area = my_wait.until(
-        EC.element_to_be_clickable(By.XPATH, "//div[@contenteditable='true' and @role='textbox']")
+        EC.element_to_be_clickable((By.XPATH, "//div[@contenteditable='true' and @role='textbox']"))
     )
     text_area.click()
     time.sleep(1)
@@ -130,7 +136,7 @@ try:
 
     # finding the post/submit button
     post_button = my_wait.until(
-        EC.element_to_be_clickable(By.XPATH, "//div[@role='button' and @aria-label='Post']")
+        EC.element_to_be_clickable((By.XPATH, "//div[@role='button' and @aria-label='Post']"))
     )
     post_button.click()
     print("Debug: Clicked the Post button!")
