@@ -1,8 +1,8 @@
-# Facebook Auto Poster - Python Selenium Assignment
+# Facebook Auto Poster - Selenium Assignment
 
 ## What This Script Does
 
-This is my Python assignment where I automated posting a status update on Facebook using Selenium. Basically, the script opens up Firefox, goes to facebook.com, logs in with your credentials, finds the "What's on your mind?" box, types a message, and clicks the Post button. It does the whole thing automatically without you having to touch anything.
+In this assignment I automated posting a status update on Facebook using Selenium. Basically, the script opens up Firefox, goes to facebook.com, logs in with your credentials, finds the "What's on your mind?" box, types a message, and clicks the Post button. It does the whole thing automatically without you having to touch anything.
 
 The flow is pretty simple:
 1. Opens Firefox browser
