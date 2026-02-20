@@ -7,8 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
+import pyperclip
 import time
 
 # --- My credentials (I know this isnt the safest way but it works for now) ---
@@ -16,7 +18,7 @@ import time
 # its fake account - BTW :)
 fb_email = "csrog.gaming@gmail.com"
 fb_password = "Ayush@2646"
-my_post_text = "Hello everyone! This is an automated post from my Python assignment 🐍"
+my_post_text = "Hello everyone! This is an automated post created using Selenium in Python. #Automation #Selenium #Python"
 
 # path to geckodriver - make sure this is correct for your machine
 # I kept getting "geckodriver not found" errors until I put the full path
@@ -124,9 +126,12 @@ try:
     text_area.click()
     time.sleep(1)
 
-    # typing out the post text
-    text_area.send_keys(my_post_text)
-    print(f"Debug: Typed the post text: '{my_post_text}'")
+    # typing out the post text - it was sending only letter H - because facebook's editor is weird
+    # so I thought why not copy past it? Google a bit and found ActionChains
+    # I'm copying the my_post_text to clipboard and pasting it with Ctrl+V - works :)
+    pyperclip.copy(my_post_text)
+    ActionChains(driver).key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).perform()
+    print(f"Debug: Pasted the post text: '{my_post_text}'")
 
     # small pause to make sure text is fully entered
     time.sleep(2)
