@@ -76,8 +76,10 @@ try:
     print("Debug: Entered password")
 
     # clicking the login button using name attribute
-    # login_btn = driver.find_element(By.XPATH, "//button[@type='submit']")  <-- this worked but was selecting wrong button sometimes
-    the_button = driver.find_element(By.NAME, "login")
+    # facebook always changes layout of button so finally this worked for me
+    the_button = my_wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//div[@role='button' and .//span[text()='Log in']]"))
+    )
     the_button.click()
     print("Debug: Clicked login button")
 
@@ -96,7 +98,7 @@ try:
     # I had to use xpath to find it because there's no good ID for it
     # elem = driver.find_element(By.CLASS_NAME, "mentionsTextarea")  <-- didn't work, old facebook layout maybe?
     post_box = my_wait.until(
-        EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "What\'s on your mind")]'))
+        EC.element_to_be_clickable(By.XPATH, '//span[contains(text(), "What\'s on your mind")]')
     )
     post_box.click()
     print("Debug: Clicked on the 'Whats on your mind' area")
@@ -111,7 +113,7 @@ try:
     # now I need to find the actual text area inside the popup dialog
     # this was the hardest part - the text area is inside a editable div
     text_area = my_wait.until(
-        EC.presence_of_element_located((By.XPATH, '//div[@role="textbox" and @aria-label="What\'s on your mind?"]'))
+        EC.element_to_be_clickable(By.XPATH, "//div[@contenteditable='true' and @role='textbox']")
     )
     text_area.click()
     time.sleep(1)
@@ -128,7 +130,7 @@ try:
 
     # finding the post/submit button
     post_button = my_wait.until(
-        EC.element_to_be_clickable((By.XPATH, '//div[@aria-label="Post"]'))
+        EC.element_to_be_clickable(By.XPATH, "//div[@role='button' and @aria-label='Post']")
     )
     post_button.click()
     print("Debug: Clicked the Post button!")
